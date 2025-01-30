@@ -4,61 +4,66 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
 	class RegistroInventario extends Model {
 		static associate(models) {
-			// Relación con Inventario
 			RegistroInventario.belongsTo(models.Inventario, {
 				foreignKey: 'id_inventario',
-				as: 'inventario', // Alias para la relación
-				onDelete: 'CASCADE', // Si se elimina un inventario, sus registros se eliminan
+				as: 'inventario',
+				onDelete: 'CASCADE',
 			});
 
-			// Relación con Usuario
 			RegistroInventario.belongsTo(models.Usuario, {
 				foreignKey: 'id_usuario',
-				as: 'usuario', // Alias para la relación
-				onDelete: 'SET NULL', // Si el usuario es eliminado, el campo se establece en NULL
+				as: 'usuario',
+				onDelete: 'SET NULL',
 			});
 		}
 	}
 
 	RegistroInventario.init(
 		{
-			id: {
+			id: {  // Cambio de ID_Columna a id
 				type: DataTypes.INTEGER,
 				primaryKey: true,
 				autoIncrement: true,
 			},
 			id_inventario: {
 				type: DataTypes.INTEGER,
-				allowNull: true,
+				allowNull: false,
+				references: {
+					model: 'Inventarios',
+					key: 'id',
+				},
 			},
 			id_usuario: {
 				type: DataTypes.INTEGER,
 				allowNull: true,
+				references: {
+					model: 'Usuarios',
+					key: 'id',
+				},
 			},
 			fecha: {
 				type: DataTypes.DATE,
-				allowNull: true,
+				defaultValue: DataTypes.NOW,
 			},
 			observaciones: {
-				type: DataTypes.STRING(255),
-				allowNull: true,
+				type: DataTypes.TEXT,
 			},
 			createdAt: {
 				type: DataTypes.DATE,
 				allowNull: false,
-				field: 'createdAt',
+				defaultValue: DataTypes.NOW,
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
 				allowNull: false,
-				field: 'updatedAt',
+				defaultValue: DataTypes.NOW,
 			},
 		},
 		{
 			sequelize,
 			modelName: 'RegistroInventario',
-			tableName: 'RegistroInventarios', // Coincide con la tabla en la BD
-			timestamps: true, // Sequelize manejará createdAt y updatedAt
+			tableName: 'RegistroInventarios',
+			timestamps: true,
 		}
 	);
 

@@ -9,8 +9,8 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 // Cargar los modelos
 const Usuario = require('./usuario')(sequelize, DataTypes);
-const Inventario = require('./inventario')(sequelize, DataTypes);
-const RegistroInventario = require('./registroinventario')(sequelize, DataTypes);
+const Inventario = require('./registroinventario')(sequelize, DataTypes);
+const RegistroInventario = require('./inventario')(sequelize, DataTypes);
 
 // Llamar a las asociaciones
 Usuario.associate({ RegistroInventario });

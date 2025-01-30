@@ -11,6 +11,10 @@ app.use(express.json());
 
 // Habilitar CORS para todas las rutas y métodos
 app.use(cors()); 
+
+// Necesario para manejar el cuerpo de las solicitudes JSON
+//app.use(bodyParser.json());
+
 //api usuarios
 app.use('/api/usuarios', usuariosRoutes);
 
