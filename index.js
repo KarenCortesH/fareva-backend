@@ -6,9 +6,18 @@ const inventariosRoutes = require('./routes/inventarios');
 const registroInventariosRoutes = require('./routes/registroInventarios');
 const sequelize = require('./config/database');
 
+
 // Crear la aplicación de Express
 app.use(express.json());
 
+// Esto forzará la creación de las tablas según los modelos
+sequelize.sync({ force: true }) 
+  .then(() => {
+	console.log('Tablas sincronizadas correctamente.');
+  })
+  .catch(err => {
+	console.error('Error al sincronizar las tablas:', err);
+  });
 // Habilitar CORS para todas las rutas y métodos
 app.use(cors()); 
 
