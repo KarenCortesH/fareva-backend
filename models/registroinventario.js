@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'RegistroInventario',
-      tableName: 'RegistroInventarios',
+      tableName: 'registroinventarios',
       timestamps: true,
     }
   );
